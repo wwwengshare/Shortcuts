@@ -499,10 +499,10 @@ enterButtonBackgroundStyle:
 enterButtonForegroundStyle:
   normalImage:
     file: more
-    image: IMG25
+    image: IMG18
   highlightImage:
     file: more2
-    image: IMG25
+    image: IMG18
   targetScale: 0.5
 
 number1Button:
