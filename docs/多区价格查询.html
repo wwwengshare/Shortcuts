@@ -1,9 +1,27 @@
-<!DOCTYPE html>
+import os
+
+redirects = {
+    "多区价格查询": "https://www.icloud.com/shortcuts/94d86ac0a7644c4781e468281b428356",
+    "日区": "https://www.icloud.com/shortcuts/xxxx2",
+    "港区": "https://www.icloud.com/shortcuts/xxxx3",
+}
+
+output_dir = "docs"
+os.makedirs(output_dir, exist_ok=True)
+
+template = """<!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="refresh" content="2; url=https://www.icloud.com/shortcuts/94d86ac0a7644c4781e468281b428356" />
+  <meta http-equiv="refresh" content="0; url={url}" />
+  <title>跳转中...</title>
 </head>
 <body>
-  <p>每一个快捷指令都制作不易，转载请保留注释，正在跳转..</p>
+  <p>正在跳转，请稍候。</p>
 </body>
 </html>
+"""
+
+for name, url in redirects.items():
+    filename = os.path.join(output_dir, f"{name}.html")
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write(template.format(url=url))
