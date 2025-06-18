@@ -9,8 +9,25 @@
       padding: 2em;
       background-color: #f9f9f9;
       text-align: center;
+      position: relative;
+    }
+    .top-link {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.2em;
+    }
+    .top-link a {
+      color: #007aff;
+      text-decoration: none;
+    }
+    .top-link a:hover {
+      text-decoration: underline;
     }
     h1 {
+      margin-top: 80px;
+      font-size: 2.5em;
       color: #333;
     }
     ul {
@@ -31,14 +48,15 @@
   </style>
 </head>
 <body>
+  <div class="top-link">
+    📌 我的主页：<a href="https://t.me/WWWengShare" target="_blank">https://t.me/WWWengShare</a>
+  </div>
+
   <h1>快捷指令合集</h1>
   <ul>
     <li><a href="调整Emby分流 🐝.html">📎 快捷指令 1</a></li>
     <li><a href="词典数据管理(Data Jar).html">📎 快捷指令 2</a></li>
     <!-- 添加更多指令 -->
   </ul>
-  <p style="margin-top: 50px; font-size: 1em;">
-    📌 我的主页：<a href="https://t.me/WWWengShare" target="_blank">https://t.me/WWWengShare</a>
-  </p>
 </body>
 </html>
