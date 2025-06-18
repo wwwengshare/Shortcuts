@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>快捷指令合集</title>
   <style>
     body {
@@ -13,6 +13,7 @@
       display: flex;
       justify-content: center;
     }
+
     .container {
       max-width: 700px;
       width: 100%;
@@ -22,28 +23,47 @@
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
       padding: 40px;
     }
+
     .top-link {
       margin-bottom: 24px;
       font-size: 0.95em;
       color: #555555;
     }
+
     .top-link a {
       color: #0070f3;
       text-decoration: none;
     }
+
     .top-link a:hover {
       text-decoration: underline;
     }
+
     h1 {
       font-size: 2.6em;
       font-weight: 600;
-      margin-bottom: 32px;
+      margin-bottom: 16px;
       color: #111111;
     }
+
+    .search-box {
+      margin-bottom: 30px;
+    }
+
+    .search-box input {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 1em;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+
     ul {
       list-style: none;
       padding: 0;
     }
+
     li {
       border: 1px solid #e2e2e2;
       border-radius: 6px;
@@ -51,18 +71,22 @@
       margin-bottom: 16px;
       transition: background-color 0.2s, box-shadow 0.2s;
     }
+
     li:hover {
       background-color: #fafafa;
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
+
     li a {
       font-size: 1.15em;
       color: #0070f3;
       text-decoration: none;
     }
+
     li a:hover {
       text-decoration: underline;
     }
+
     @media (max-width: 600px) {
       .container {
         padding: 24px;
@@ -79,10 +103,16 @@
 <body>
   <div class="container">
     <div class="top-link">
-      📌 我的频道：<a href="https://t.me/WWWengShare" target="_blank">https://t.me/WWWengShare</a>
+      📌 我的主页：<a href="https://t.me/WWWengShare" target="_blank">https://t.me/WWWengShare</a>
     </div>
-    <h1>快捷指令合集</h1>
-    <ul>
+
+    <h1 id="pageTitle">快捷指令合集</h1>
+
+    <div class="search-box">
+      <input type="text" id="searchInput" placeholder="🔍 搜索快捷指令关键词..." onkeyup="filterList()" />
+    </div>
+
+    <ul id="shortcutList">
       <li><a href="词典数据管理(Data Jar).html">📎 词典数据管理(Data Jar)</a></li>
       <li><a href="打包下载GitHub项目文件.html">📎 打包下载GitHub项目文件</a></li>
       <li><a href="调整Emby分流 🐝.html">📎 调整Emby分流 🐝</a></li>
@@ -143,5 +173,36 @@
       <li><a href="ToMemo快捷工具🐝.html">📎 ToMemo快捷工具🐝</a></li>
     </ul>
   </div>
+
+  <script>
+    function updateTitleCount(count) {
+      const title = document.getElementById("pageTitle");
+      title.textContent = `快捷指令合集（共 ${count} 个）`;
+    }
+
+    function filterList() {
+      const input = document.getElementById("searchInput");
+      const filter = input.value.toLowerCase();
+      const ul = document.getElementById("shortcutList");
+      const items = ul.getElementsByTagName("li");
+
+      let visibleCount = 0;
+
+      for (let i = 0; i < items.length; i++) {
+        const text = items[i].innerText.toLowerCase();
+        const match = text.includes(filter);
+        items[i].style.display = match ? "" : "none";
+        if (match) visibleCount++;
+      }
+
+      updateTitleCount(visibleCount);
+    }
+
+    // 页面加载后初始化总数
+    document.addEventListener("DOMContentLoaded", function () {
+      const total = document.getElementById("shortcutList").getElementsByTagName("li").length;
+      updateTitleCount(total);
+    });
+  </script>
 </body>
 </html>
