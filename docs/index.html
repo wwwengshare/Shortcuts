@@ -70,6 +70,7 @@
     ul {
       list-style: none;
       padding: 0;
+      padding-bottom: 300px; /* ✅ 防止软键盘遮挡搜索结果 */
     }
 
     li {
@@ -116,7 +117,7 @@
       📌 我的频道：<a href="https://t.me/WWWengShare" target="_blank">https://t.me/WWWengShare</a>
     </div>
 
-    <h1 id="pageTitle">快捷指令合集</h1>
+    <h1 id="pageTitle">WWWeng🐝の快捷指令合集</h1>
 
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="🔍 搜索快捷指令关键词..." onkeyup="filterList()" />
@@ -187,7 +188,7 @@
   <script>
     function updateTitleCount(count) {
       const title = document.getElementById("pageTitle");
-      title.textContent = `快捷指令合集（共 ${count} 个）`;
+      title.textContent = `WWWeng🐝の快捷指令合集（共 ${count} 个）`;
     }
 
     function filterList() {
@@ -213,13 +214,12 @@
       updateTitleCount(total);
     });
 
-    // 搜索框聚焦时滚动到顶部
-    document.getElementById("searchInput").addEventListener("focus", function () {
-      const inputTop = this.getBoundingClientRect().top + window.scrollY;
-      window.scrollTo({
-        top: inputTop - 20, // 可调整这个数值以设置缓冲空间
-        behavior: "smooth"
-      });
+    // ✅ iOS 优化：输入框聚焦后延迟滚动，确保不被遮挡
+    const searchInput = document.getElementById("searchInput");
+    searchInput.addEventListener("focus", function () {
+      setTimeout(() => {
+        searchInput.scrollIntoView({ behavior: "smooth", block: "start" });
+      }, 300); // 延迟确保键盘弹出后再滚动
     });
   </script>
 </body>
