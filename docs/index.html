@@ -126,7 +126,7 @@
     <ul id="shortcutList"></ul>
 
     <!-- 📊 人流量统计区域 -->
-    <div style="
+    <div id="visitorCounter" style="
       position: fixed;
       bottom: 10px;
       left: 0;
@@ -134,13 +134,27 @@
       text-align: center;
       font-size: 0.9em;
       color: #999;
-      background: rgba(255, 255, 255, 0.8);
+      background: transparent;
       padding: 6px 0;
       z-index: 999;
-      backdrop-filter: blur(4px);
+      opacity: 1;
+      transition: opacity 0.5s;
     ">
       👁️ 网站总访问量：<span id="busuanzi_value_site_pv">加载中...</span>
     </div>
+    
+    <script>
+      let scrollTimer;
+      const counter = document.getElementById('visitorCounter');
+    
+      window.addEventListener('scroll', () => {
+        counter.style.opacity = '0'; // 滚动时隐藏
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+          counter.style.opacity = '1'; // 停止滚动后显示
+        }, 300);
+      });
+    </script>
 
   <script>
     let allShortcuts = [];
