@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-  <title>WWWeng🐝の快捷指令合集</title>
+  <title>快捷指令合集</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
@@ -70,7 +70,7 @@
     ul {
       list-style: none;
       padding: 0;
-      padding-bottom: 300px; /* ✅ 防止软键盘遮挡搜索结果 */
+      padding-bottom: 300px; /* ✅ 保证搜索结果不被软键盘遮挡 */
     }
 
     li {
@@ -117,7 +117,7 @@
       📌 我的频道：<a href="https://t.me/WWWengShare" target="_blank">https://t.me/WWWengShare</a>
     </div>
 
-    <h1 id="pageTitle">WWWeng🐝の快捷指令合集</h1>
+    <h1 id="pageTitle">快捷指令合集</h1>
 
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="🔍 搜索快捷指令关键词..." onkeyup="filterList()" />
@@ -188,7 +188,7 @@
   <script>
     function updateTitleCount(count) {
       const title = document.getElementById("pageTitle");
-      title.textContent = `WWWeng🐝の快捷指令合集（共 ${count} 个）`;
+      title.textContent = `快捷指令合集（共 ${count} 个）`;
     }
 
     function filterList() {
@@ -214,12 +214,16 @@
       updateTitleCount(total);
     });
 
-    // ✅ iOS 优化：输入框聚焦后延迟滚动，确保不被遮挡
+    // ✅ iOS 适配：聚焦搜索框时连贯滚动、不分段
     const searchInput = document.getElementById("searchInput");
     searchInput.addEventListener("focus", function () {
+      // 第一步：平滑滚到中间
+      searchInput.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      // 第二步：轻微上移，保证顶部空间不被遮挡
       setTimeout(() => {
-        searchInput.scrollIntoView({ behavior: "smooth", block: "start" });
-      }, 300); // 延迟确保键盘弹出后再滚动
+        window.scrollBy({ top: -20, behavior: "smooth" });
+      }, 200);
     });
   </script>
 </body>
