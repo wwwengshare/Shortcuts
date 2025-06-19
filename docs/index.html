@@ -56,15 +56,32 @@
 
     .search-box {
       margin-bottom: 24px;
+      position: relative;
     }
 
     .search-box input {
       width: 100%;
-      padding: 10px 14px;
+      padding: 10px 40px 10px 14px;
       font-size: 1em;
       border: 1px solid #ddd;
       border-radius: 6px;
       box-sizing: border-box;
+    }
+
+    #clearBtn {
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: none;
+      cursor: pointer;
+      display: none;
+      padding: 0;
+    }
+
+    #clearBtn svg:hover {
+      opacity: 0.8;
     }
 
     ul {
@@ -121,6 +138,12 @@
 
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="🔍 搜索快捷指令关键词..." onkeyup="filterList()" />
+      <button id="clearBtn" onclick="clearSearch()" aria-label="清空搜索">
+        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <circle cx="12" cy="12" r="11" fill="#e0e0e0"/>
+          <path d="M15 9L9 15M9 9l6 6" stroke="#555" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+      </button>
     </div>
 
     <ul id="shortcutList"></ul>
@@ -142,11 +165,11 @@
     ">
       👁️ 网站总访问量：<span id="busuanzi_value_site_pv">加载中...</span>
     </div>
-    
+
     <script>
       let scrollTimer;
       const counter = document.getElementById('visitorCounter');
-    
+
       window.addEventListener('scroll', () => {
         counter.style.opacity = '0'; // 滚动时隐藏
         clearTimeout(scrollTimer);
@@ -156,85 +179,99 @@
       });
     </script>
 
-  <script>
-    let allShortcuts = [];
+    <script>
+      let allShortcuts = [];
 
-    function updateTitleCount(count) {
-      const title = document.getElementById("pageTitle");
-      title.textContent = `快捷指令合集（共 ${count} 个）`;
-    }
+      function updateTitleCount(count) {
+        const title = document.getElementById("pageTitle");
+        title.textContent = `快捷指令合集（共 ${count} 个）`;
+      }
 
-    function renderList(shortcuts) {
-      const ul = document.getElementById("shortcutList");
-      ul.innerHTML = "";
+      function renderList(shortcuts) {
+        const ul = document.getElementById("shortcutList");
+        ul.innerHTML = "";
 
-      shortcuts.forEach(item => {
-        const li = document.createElement("li");
-        const a = document.createElement("a");
-        a.href = item.url;
-        a.textContent = item.title;
-        li.appendChild(a);
-        ul.appendChild(li);
+        shortcuts.forEach(item => {
+          const li = document.createElement("li");
+          const a = document.createElement("a");
+          a.href = item.url;
+          a.textContent = item.title;
+          li.appendChild(a);
+          ul.appendChild(li);
+        });
+
+        if (shortcuts.length > 0) {
+          const note = document.createElement("li");
+          note.style.marginTop = "20px";
+          note.style.padding = "14px";
+          note.style.border = "none";
+          note.style.color = "#555";
+          note.style.fontSize = "0.9em";
+          note.innerHTML = `
+            📢 <strong>提示：</strong>该页面快捷指令将会自动更新为最新版，使用前务必看清注释内容，若不明白可结合频道的视频一起看。<br /><br />
+            🤖 <strong>反馈：</strong><a href="https://t.me/wwwengbot" target="_blank">@wwwengbot</a><br /><br />
+            📱 <strong>应用：</strong><a href="https://t.me/Apps_Share" target="_blank">@Apps_Share</a>
+          `;
+          ul.appendChild(note);
+        }
+
+        updateTitleCount(shortcuts.length);
+      }
+
+      function filterList() {
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toLowerCase();
+        const filtered = allShortcuts.filter(item =>
+          item.title.toLowerCase().includes(filter)
+        );
+        renderList(filtered);
+      }
+
+      async function loadShortcuts() {
+        try {
+          const response = await fetch("https://shortcuts.wwweng.eu.org/shortcuts.json");
+          allShortcuts = await response.json();
+          renderList(allShortcuts);
+        } catch (e) {
+          console.error("加载快捷指令失败：", e);
+        }
+      }
+
+      function clearSearch() {
+        const input = document.getElementById("searchInput");
+        input.value = "";
+        filterList();
+        input.focus();
+        document.getElementById("clearBtn").style.display = "none";
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        loadShortcuts();
       });
 
-      // 插入提示注释
-      if (shortcuts.length > 0) {
-        const note = document.createElement("li");
-        note.style.marginTop = "20px";
-        note.style.padding = "14px";
-        note.style.border = "none";
-        note.style.color = "#555";
-        note.style.fontSize = "0.9em";
-        note.innerHTML = `
-          📢 <strong>提示：</strong>该页面快捷指令将会自动更新为最新版，使用前务必看清注释内容，若不明白可结合频道的视频一起看。<br /><br />
-          🤖 <strong>反馈：</strong><a href="https://t.me/wwwengbot" target="_blank">@wwwengbot</a><br /><br />
-          📱 <strong>应用：</strong><a href="https://t.me/Apps_Share" target="_blank">@Apps_Share</a>
-        `;
-        ul.appendChild(note);
-      }
+      const searchInput = document.getElementById("searchInput");
+      const clearBtn = document.getElementById("clearBtn");
 
-      updateTitleCount(shortcuts.length);
-    }
+      searchInput.addEventListener("input", function () {
+        clearBtn.style.display = this.value.trim().length > 0 ? "block" : "none";
+      });
 
-    function filterList() {
-      const input = document.getElementById("searchInput");
-      const filter = input.value.toLowerCase();
-      const filtered = allShortcuts.filter(item =>
-        item.title.toLowerCase().includes(filter)
-      );
-      renderList(filtered);
-    }
+      searchInput.addEventListener("focus", function () {
+        this.scrollIntoView({ behavior: "smooth", block: "center" });
+        setTimeout(() => {
+          window.scrollBy({ top: -20, behavior: "smooth" });
+        }, 200);
+      });
 
-    async function loadShortcuts() {
-      try {
-        const response = await fetch("https://shortcuts.wwweng.eu.org/shortcuts.json");
-        allShortcuts = await response.json();
-        renderList(allShortcuts);
-      } catch (e) {
-        console.error("加载快捷指令失败：", e);
-      }
-    }
+      searchInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          this.blur();
+        }
+      });
+    </script>
 
-    document.addEventListener("DOMContentLoaded", function () {
-      loadShortcuts();
-    });
-
-    const searchInput = document.getElementById("searchInput");
-    searchInput.addEventListener("focus", function () {
-      searchInput.scrollIntoView({ behavior: "smooth", block: "center" });
-      setTimeout(() => {
-        window.scrollBy({ top: -20, behavior: "smooth" });
-      }, 200);
-    });
-    // 👇 回车时自动收起键盘
-    searchInput.addEventListener("keydown", function (e) {
-      if (e.key === "Enter") {
-        this.blur();
-      }
-    });
-  </script>
-
-  <!-- 📊 不蒜子统计脚本 -->
-  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <!-- 📊 不蒜子统计脚本 -->
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+  </div>
 </body>
 </html>
