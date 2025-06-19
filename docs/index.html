@@ -126,10 +126,23 @@
     <ul id="shortcutList"></ul>
 
     <!-- 📊 人流量统计区域 -->
-    <div style="margin-top: 20px; font-size: 0.9em; color: #999;">
-      👁️ 总访问量：<span id="busuanzi_value_site_pv">加载中...</span>
+    <div style="
+      position: fixed;
+      bottom: 10px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9em;
+      color: #999;
+      background: rgba(255, 255, 255, 0.8);
+      padding: 6px 0;
+      z-index: 999;
+      backdrop-filter: blur(4px);
+    ">
+      👁️ 本页访问次数：<span id="busuanzi_value_page_pv">加载中...</span>，
+      总访问量：<span id="busuanzi_value_site_pv">加载中...</span>，
+      当前在线：<span id="busuanzi_value_site_uv">加载中...</span>
     </div>
-  </div>
 
   <script>
     let allShortcuts = [];
