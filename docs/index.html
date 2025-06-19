@@ -124,11 +124,6 @@
     </div>
 
     <ul id="shortcutList"></ul>
-
-    <p style="margin-top: 40px; font-size: 0.9em; color: #555;">
-      📢 <strong>提示：</strong>该页面快捷指令将会自动更新为最新版，使用前务必看清注释内容，若不明白可结合频道的视频一起看。<br />
-      🤖 反馈请联系：<a href="https://t.me/wwweng" target="_blank">@wwweng</a>
-    </p>
   </div>
 
   <script>
@@ -152,6 +147,21 @@
         ul.appendChild(li);
       });
 
+      // 插入提示注释
+      if (shortcuts.length > 0) {
+        const note = document.createElement("li");
+        note.style.marginTop = "20px";
+        note.style.padding = "14px";
+        note.style.border = "none";
+        note.style.color = "#555";
+        note.style.fontSize = "0.9em";
+        note.innerHTML = `
+          📢 <strong>提示：</strong>该页面快捷指令将会自动更新为最新版，使用前务必看清注释内容，若不明白可结合频道的视频一起看。<br />
+          🤖 反馈请联系：<a href="https://t.me/wwwengbot" target="_blank">@wwwengbot</a>
+        `;
+        ul.appendChild(note);
+      }
+
       updateTitleCount(shortcuts.length);
     }
 
@@ -164,7 +174,6 @@
       renderList(filtered);
     }
 
-    // 加载远程 JSON 文件
     async function loadShortcuts() {
       try {
         const response = await fetch("https://shortcuts.wwweng.eu.org/shortcuts.json");
@@ -179,7 +188,6 @@
       loadShortcuts();
     });
 
-    // iOS 搜索框聚焦优化
     const searchInput = document.getElementById("searchInput");
     searchInput.addEventListener("focus", function () {
       searchInput.scrollIntoView({ behavior: "smooth", block: "center" });
