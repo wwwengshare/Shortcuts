@@ -162,7 +162,7 @@
     // 加载远程 JSON 文件
     async function loadShortcuts() {
       try {
-        const response = await fetch("https://raw.githubusercontent.com/wwwengshare/Shortcuts/main/shortcuts.json");
+        const response = await fetch("https://shortcuts.wwweng.eu.org/shortcuts.json");
         allShortcuts = await response.json();
         renderList(allShortcuts);
       } catch (e) {
