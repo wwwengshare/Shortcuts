@@ -226,6 +226,12 @@
         window.scrollBy({ top: -20, behavior: "smooth" });
       }, 200);
     });
+    // 👇 回车时自动收起键盘
+    searchInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        this.blur();
+      }
+    });
   </script>
 
   <!-- 📊 不蒜子统计脚本 -->
