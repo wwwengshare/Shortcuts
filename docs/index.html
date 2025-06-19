@@ -78,6 +78,12 @@
       cursor: pointer;
       display: none;
       padding: 0;
+      line-height: 1;
+    }
+
+    #clearBtn svg {
+      width: 16px;
+      height: 16px;
     }
 
     #clearBtn svg:hover {
@@ -139,7 +145,7 @@
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="🔍 搜索快捷指令关键词..." onkeyup="filterList()" />
       <button id="clearBtn" onclick="clearSearch()" aria-label="清空搜索">
-        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none">
           <circle cx="12" cy="12" r="11" fill="#e0e0e0"/>
           <path d="M15 9L9 15M9 9l6 6" stroke="#555" stroke-width="2" stroke-linecap="round"/>
         </svg>
@@ -171,10 +177,10 @@
       const counter = document.getElementById('visitorCounter');
 
       window.addEventListener('scroll', () => {
-        counter.style.opacity = '0'; // 滚动时隐藏
+        counter.style.opacity = '0';
         clearTimeout(scrollTimer);
         scrollTimer = setTimeout(() => {
-          counter.style.opacity = '1'; // 停止滚动后显示
+          counter.style.opacity = '1';
         }, 300);
       });
     </script>
