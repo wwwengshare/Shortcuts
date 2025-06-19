@@ -119,6 +119,12 @@
       text-decoration: underline;
     }
 
+    .update-time {
+      font-size: 0.85em;
+      color: #888;
+      margin-top: 4px;
+    }
+
     @media (max-width: 600px) {
       .container {
         padding: 24px;
@@ -154,7 +160,6 @@
 
     <ul id="shortcutList"></ul>
 
-    <!-- 📊 人流量统计区域 -->
     <div id="visitorCounter" style="
       position: fixed;
       bottom: 10px;
@@ -173,24 +178,21 @@
     </div>
 
     <script>
-      let scrollTimer;
-      const counter = document.getElementById('visitorCounter');
-
-      window.addEventListener('scroll', () => {
-        counter.style.opacity = '0';
-        clearTimeout(scrollTimer);
-        scrollTimer = setTimeout(() => {
-          counter.style.opacity = '1';
-        }, 300);
-      });
-    </script>
-
-    <script>
       let allShortcuts = [];
 
       function updateTitleCount(count) {
         const title = document.getElementById("pageTitle");
         title.textContent = `快捷指令合集（共 ${count} 个）`;
+      }
+
+      function getCurrentFormattedTime() {
+        const now = new Date();
+        const yy = String(now.getFullYear()).slice(2);
+        const mm = String(now.getMonth() + 1).padStart(2, '0');
+        const dd = String(now.getDate()).padStart(2, '0');
+        const hh = String(now.getHours()).padStart(2, '0');
+        const min = String(now.getMinutes()).padStart(2, '0');
+        return `${yy}-${mm}-${dd}  ${hh}:${min}`;
       }
 
       function renderList(shortcuts) {
@@ -199,10 +201,17 @@
 
         shortcuts.forEach(item => {
           const li = document.createElement("li");
+
           const a = document.createElement("a");
           a.href = item.url;
           a.textContent = item.title;
           li.appendChild(a);
+
+          const updateTime = document.createElement("div");
+          updateTime.className = "update-time";
+          updateTime.textContent = `🕒 更新时间：${item.time || getCurrentFormattedTime()}`;
+          li.appendChild(updateTime);
+
           ul.appendChild(li);
         });
 
@@ -276,7 +285,6 @@
       });
     </script>
 
-    <!-- 📊 不蒜子统计脚本 -->
     <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
   </div>
 </body>
