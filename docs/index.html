@@ -243,12 +243,19 @@
           note.style.marginTop = "20px";
           note.style.padding = "14px";
           note.style.border = "none";
-          note.style.color = "#555";
-          note.style.fontSize = "0.9em";
+          note.style.color = "#aaa";
+          note.style.fontSize = "10px";
+        
           note.innerHTML = `
-            📢 <strong>提示：</strong>该页面快捷指令将会自动更新为最新版，使用前务必看清注释内容，若不明白可结合频道的视频一起看。<br /><br />
-            🤖 <strong>反馈：</strong><a href="https://t.me/wwwengbot" target="_blank">@wwwengbot</a><br /><br />
-            📱 <strong>应用：</strong><a href="https://t.me/Apps_Share" target="_blank">@Apps_Share</a>
+            <div style="margin-bottom: 6px;">
+              📢 <strong>提示：</strong>该页面快捷指令将会自动更新为最新版，使用前务必看清注释内容，若不明白可结合频道的视频一起看。
+            </div>
+            <div style="margin-bottom: 6px;">
+              🤖 <strong>反馈：</strong>@wwwengbot
+            </div>
+            <div>
+              📱 <strong>应用：</strong>@Apps_Share
+            </div>
           `;
           ul.appendChild(note);
         }
