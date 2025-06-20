@@ -243,18 +243,25 @@
           note.style.marginTop = "20px";
           note.style.padding = "14px";
           note.style.border = "none";
-          note.style.color = "#aaa";
-          note.style.fontSize = "10px";
+          note.style.fontSize = "0.8em"; // 缩小为原来的80%
         
           note.innerHTML = `
             <div style="margin-bottom: 6px;">
-              📢 <strong>提示：</strong>该页面快捷指令将会自动更新为最新版，使用前务必看清注释内容，若不明白可结合频道的视频一起看。
+              📢 <strong>提示：</strong>该页面快捷指令将会自动更新为最新版，使用前务必看清注释内容，若不明白可结合频道的视频一起看；⭐表示我的推荐等级，最多三颗星。
             </div>
+        
+            <div style="height: 6px;"></div>
+        
             <div style="margin-bottom: 6px;">
-              🤖 <strong>反馈：</strong>@wwwengbot
+              🤖 <strong>反馈：</strong>
+              <a href="https://t.me/wwwengbot" target="_blank" style="text-decoration: underline; font-weight: bold;">@wwwengbot</a>
             </div>
+        
+            <div style="height: 6px;"></div>
+        
             <div>
-              📱 <strong>应用：</strong>@Apps_Share
+              📱 <strong>应用：</strong>
+              <a href="https://t.me/Apps_Share" target="_blank" style="text-decoration: underline; font-weight: bold;">@Apps_Share</a>
             </div>
           `;
           ul.appendChild(note);
