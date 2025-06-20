@@ -102,6 +102,9 @@
       padding: 10px 14px;
       margin-bottom: 8px;
       transition: background-color 0.2s, box-shadow 0.2s;
+      display: flex;
+      flex-direction: column;
+      position: relative;
     }
 
     li:hover {
@@ -123,7 +126,19 @@
       font-size: 0.85em;
       color: #888;
       margin-top: 4px;
-      padding-left: 2px; /* 对齐调整 */
+      padding-left: 2px;
+    }
+
+    .stars {
+      position: absolute;
+      right: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1em;
+      color: #f5a623;
+      display: flex;
+      align-items: center;
+      height: 100%;
     }
 
     @media (max-width: 600px) {
@@ -213,6 +228,13 @@
           updateTime.textContent = `🕒 更新时间：${item.time || getCurrentFormattedTime()}`;
           li.appendChild(updateTime);
 
+          if (item.star && item.star > 0) {
+            const stars = document.createElement("span");
+            stars.className = "stars";
+            stars.textContent = "⭐".repeat(item.star);
+            li.appendChild(stars);
+          }
+
           ul.appendChild(li);
         });
 
@@ -224,9 +246,11 @@
           note.style.color = "#555";
           note.style.fontSize = "0.9em";
           note.innerHTML = `
-            📢 <strong>提示：</strong>该页面快捷指令将会自动更新为最新版，使用前务必看清注释内容，若不明白可结合频道的视频一起看。<br /><br />
-            🤖 <strong>反馈：</strong><a href="https://t.me/wwwengbot" target="_blank">@wwwengbot</a><br /><br />
-            📱 <strong>应用：</strong><a href="https://t.me/Apps_Share" target="_blank">@Apps_Share</a>
+            <div style="white-space: nowrap; overflow-x: auto;">
+              📢 <strong>提示：</strong>该页面快捷指令将会自动更新为最新版，使用前务必看清注释内容，若不明白可结合频道的视频一起看。
+              &nbsp;&nbsp;🤖 <strong>反馈：</strong><a href="https://t.me/wwwengbot" target="_blank">@wwwengbot</a>
+              &nbsp;&nbsp;📱 <strong>应用：</strong><a href="https://t.me/Apps_Share" target="_blank">@Apps_Share</a>
+            </div>
           `;
           ul.appendChild(note);
         }
