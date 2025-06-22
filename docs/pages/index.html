@@ -26,6 +26,12 @@
       padding: 24px;
     }
 
+    .container img.cover {
+      width: 100%;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+
     h1 {
       font-size: 2em;
       font-weight: 600;
@@ -68,21 +74,6 @@
       text-decoration: underline;
     }
 
-    .back-home {
-      margin-top: 18px;
-      text-align: center;
-      font-size: 1.6em;
-    }
-
-    .back-home a {
-      color: #0070f3;
-      text-decoration: none;
-    }
-
-    .back-home a:hover {
-      text-decoration: underline;
-    }
-
     @media (max-width: 600px) {
       .container {
         padding: 18px;
@@ -98,6 +89,8 @@
 </head>
 <body>
   <div class="container">
+    <img class="cover" src="fengmian.JPG" alt="封面图" />
+
     <h1>合集导航目录</h1>
 
     <div class="section">
@@ -122,10 +115,6 @@
         <li><a href="#">快捷指令合集主页（链接待填）</a></li>
         <li><a href="#">App 搭配用快捷指令（链接待填）</a></li>
       </ul>
-    </div>
-
-    <div class="back-home">
-      🏠 <a href="https://shortcuts.wwweng.eu.org">返回主页</a>
     </div>
 
     <div id="visitorCounter" style="
