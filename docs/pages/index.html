@@ -23,66 +23,67 @@
       border: 1px solid #e2e2e2;
       border-radius: 10px;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      padding: 24px;
+      padding: 36px 24px;
+      text-align: center;
     }
 
     .container img.cover {
       width: 100%;
       border-radius: 8px;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
     }
 
     h1 {
-      font-size: 2em;
-      font-weight: 600;
-      margin-bottom: 20px;
+      font-size: 2.4em;
+      font-weight: 700;
+      margin-bottom: 36px;
       color: #111111;
     }
 
-    .section-title {
+    .link-card {
+      position: relative;
+      display: block;
+      max-width: 300px;
+      margin: 16px auto;
+      background-color: #f0f8ff;
+      border: 1px solid #cce4ff;
+      border-radius: 8px;
+      padding: 14px 20px;
       font-size: 1.3em;
-      margin: 12px 0 10px;
-      font-weight: bold;
-    }
-
-    ul {
-      list-style: none;
-      padding: 0;
-      margin: 0 0 24px 0;
-    }
-
-    li {
-      border: 1px solid #e2e2e2;
-      border-radius: 5px;
-      padding: 8px 12px;
-      margin-bottom: 6px;
+      font-weight: 600;
+      color: #0070f3;
+      text-decoration: none;
       transition: background-color 0.2s, box-shadow 0.2s;
     }
 
-    li:hover {
-      background-color: #fafafa;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+    .link-card:hover {
+      background-color: #e6f2ff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     }
 
-    li a {
-      font-size: 1em;
-      color: #0070f3;
-      text-decoration: none;
+    .link-card .text {
+      display: inline-block;
+      position: relative;
     }
 
-    li a:hover {
-      text-decoration: underline;
+    .link-card .emoji {
+      position: absolute;
+      left: -1.4em;
+      top: 0;
     }
 
     @media (max-width: 600px) {
       .container {
-        padding: 18px;
+        padding: 24px 16px;
       }
+
       h1 {
-        font-size: 1.8em;
+        font-size: 2em;
       }
-      li {
-        padding: 6px 10px;
+
+      .link-card {
+        font-size: 1.2em;
+        padding: 12px 18px;
       }
     }
   </style>
@@ -90,51 +91,20 @@
 <body>
   <div class="container">
     <img class="cover" src="fengmian.JPG" alt="封面图" />
-
+    
     <h1>合集导航目录</h1>
 
-    <div class="section">
-      <div class="section-title">📦 App Store 合集</div>
-      <ul>
-        <li><a href="#">限免/降价合集（链接待填）</a></li>
-        <li><a href="#">必买推荐合集（链接待填）</a></li>
-      </ul>
-    </div>
+    <a href="#" class="link-card">
+      <span class="text"><span class="emoji">📦</span>应用推荐合集</span>
+    </a>
 
-    <div class="section">
-      <div class="section-title">🧭 AppRaven 合集</div>
-      <ul>
-        <li><a href="#">Raven 限免合集（链接待填）</a></li>
-        <li><a href="#">装机推荐合集（链接待填）</a></li>
-      </ul>
-    </div>
+    <a href="#" class="link-card">
+      <span class="text"><span class="emoji">⚡️</span>快捷指令合集</span>
+    </a>
 
-    <div class="section">
-      <div class="section-title">⚡️ 快捷指令合集</div>
-      <ul>
-        <li><a href="#">快捷指令合集主页（链接待填）</a></li>
-        <li><a href="#">App 搭配用快捷指令（链接待填）</a></li>
-      </ul>
-    </div>
-
-    <div id="visitorCounter" style="
-      position: fixed;
-      bottom: 10px;
-      left: 0;
-      width: 100%;
-      text-align: center;
-      font-size: 0.9em;
-      color: #999;
-      background: transparent;
-      padding: 6px 0;
-      z-index: 999;
-      opacity: 1;
-      transition: opacity 0.5s;
-    ">
-      👁️ 网站总访问量：<span id="busuanzi_value_site_pv">加载中...</span>
-    </div>
-
-    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <a href="#" class="link-card">
+      <span class="text"><span class="emoji">📣</span>频道社群整理</span>
+    </a>
   </div>
 </body>
 </html>
