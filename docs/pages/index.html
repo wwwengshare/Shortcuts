@@ -41,8 +41,9 @@
     }
 
     .link-card {
-      position: relative;
-      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       max-width: 300px;
       margin: 16px auto;
       background-color: #f0f8ff;
@@ -50,9 +51,6 @@
       border-radius: 8px;
       padding: 14px 20px;
       font-size: 1.3em;
-      font-weight: 600;
-      color: #0070f3;
-      text-decoration: none;
       transition: background-color 0.2s, box-shadow 0.2s;
     }
 
@@ -61,15 +59,14 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     }
 
-    .link-card .text {
-      display: inline-block;
-      position: relative;
+    .link-text {
+      font-weight: 600;
+      color: #0070f3;
+      text-decoration: none;
     }
 
-    .link-card .emoji {
-      position: absolute;
-      left: -1.4em;
-      top: 0;
+    .link-text:hover {
+      text-decoration: underline;
     }
 
     @media (max-width: 600px) {
@@ -94,17 +91,17 @@
     
     <h1>合集导航目录</h1>
 
-    <a href="#" class="link-card">
-      <span class="text"><span class="emoji">📦&nbsp;</span>应用推荐合集</span>
-    </a>
+    <div class="link-card">
+      <a href="#" class="link-text">应用推荐合集</a>
+    </div>
 
-    <a href="https://shortcuts.wwweng.eu.org" class="link-card">
-      <span class="text"><span class="emoji">⚡️&nbsp;</span>快捷指令合集</span>
-    </a>
+    <div class="link-card">
+      <a href="https://shortcuts.wwweng.eu.org" class="link-text">快捷指令合集</a>
+    </div>
 
-    <a href="#" class="link-card">
-      <span class="text"><span class="emoji">📣&nbsp;</span>频道社群整理</span>
-    </a>
+    <div class="link-card">
+      <a href="#" class="link-text">频道社群整理</a>
+    </div>
   </div>
 
   <div id="visitorCounter" style="
