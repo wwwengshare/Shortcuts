@@ -219,8 +219,8 @@
           const li = document.createElement("li");
 
           const a = document.createElement("a");
-          a.href = item.url;
-          a.textContent = item.title;
+          a.href = `${item.title}.html`;
+          a.textContent = `📎 ${item.title}`;
           li.appendChild(a);
 
           const updateTime = document.createElement("div");
