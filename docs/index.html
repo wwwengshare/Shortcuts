@@ -228,15 +228,20 @@
           const linkRow = document.createElement("div");
           linkRow.className = "link-row";
 
-          const a = document.createElement("a");
-          a.href = `${item.name || item.title}.html`;
-
           const emoji = document.createElement("span");
           emoji.textContent = "📎 ";
-          a.appendChild(emoji);
-          a.appendChild(document.createTextNode(item.title));
+          linkRow.appendChild(emoji);
 
-          linkRow.appendChild(a);
+          const titleWrapper = document.createElement("div");
+          titleWrapper.style.flex = "1";
+
+          const a = document.createElement("a");
+          a.href = `${item.name || item.title}.html`;
+          a.textContent = item.title;
+          a.style.display = "inline-block";
+
+          titleWrapper.appendChild(a);
+          linkRow.appendChild(titleWrapper);
 
           if (item.star && item.star > 0) {
             const stars = document.createElement("span");
@@ -247,7 +252,6 @@
 
           li.appendChild(linkRow);
 
-          // 更新时间和作者在下一行
           const updateTime = document.createElement("div");
           updateTime.className = "update-time";
 
@@ -263,7 +267,6 @@
           }
 
           li.appendChild(updateTime);
-
           ul.appendChild(li);
         });
 
@@ -278,11 +281,9 @@
             <div style="margin-bottom: 10px; text-align: center; font-size: 1.6em;">
               🏠 <a href="https://shortcuts.wwweng.eu.org/pages" style="color: #0070f3; text-decoration: none;"><strong>返回主页</strong></a>
             </div>
-
             <div style="margin-bottom: 6px;">
               📢 <strong>提示：</strong>该页面快捷指令将会自动更新为最新版，使用前务必看清注释内容，若不明白可结合频道的视频一起看；⭐表示我的推荐等级，最多三颗星。
             </div>
-
             <div style="height: 6px;"></div>
           `;
           ul.appendChild(note);
