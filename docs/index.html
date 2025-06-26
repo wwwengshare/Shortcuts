@@ -140,7 +140,15 @@
       font-size: 0.85em;
       color: #888;
       margin-top: 4px;
-      overflow: hidden;
+      position: relative;
+      padding-left: 1.9em; /* 留出 🕒 的宽度 */
+    }
+
+    .clock-icon {
+      position: absolute;
+      left: 0;
+      top: 0;
+      user-select: none;
     }
 
     .author {
@@ -229,7 +237,7 @@
           linkRow.className = "link-row";
 
           const emoji = document.createElement("span");
-          emoji.textContent = "📎 ";
+          emoji.innerHTML = "📎&nbsp;"; // 保留空格
           linkRow.appendChild(emoji);
 
           const titleWrapper = document.createElement("div");
@@ -256,7 +264,7 @@
           updateTime.className = "update-time";
 
           const timeSpan = document.createElement("span");
-          timeSpan.textContent = `🕒 Update：${item.time || getCurrentFormattedTime()}`;
+          timeSpan.innerHTML = `<span class="clock-icon">🕒</span>Update：${item.time || getCurrentFormattedTime()}`;
           updateTime.appendChild(timeSpan);
 
           if (item.author) {
