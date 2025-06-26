@@ -112,33 +112,39 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.05);
     }
 
+    .link-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
     li a {
       font-size: 1em;
       color: #0070f3;
       text-decoration: none;
+      display: inline-block;
     }
 
     li a:hover {
       text-decoration: underline;
     }
 
+    .stars {
+      font-size: 1em;
+      color: #f5a623;
+      white-space: nowrap;
+      margin-left: 8px;
+    }
+
     .update-time {
       font-size: 0.85em;
       color: #888;
       margin-top: 4px;
-      padding-left: 2px;
+      overflow: hidden;
     }
 
-    .stars {
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1em;
-      color: #f5a623;
-      display: flex;
-      align-items: center;
-      height: 100%;
+    .author {
+      float: right;
     }
 
     @media (max-width: 600px) {
@@ -218,26 +224,40 @@
         shortcuts.forEach(item => {
           const li = document.createElement("li");
 
+          // 链接和星星同行
+          const linkRow = document.createElement("div");
+          linkRow.className = "link-row";
+
           const a = document.createElement("a");
           a.href = `${item.name || item.title}.html`;
           a.textContent = `📎 ${item.title}`;
-          li.appendChild(a);
-
-          const updateTime = document.createElement("div");
-          updateTime.className = "update-time";
-          let timeText = `🕒 更新：${item.time || getCurrentFormattedTime()}`;
-          if (item.author) {
-            timeText += ` ｜ 👤作者：${item.author}`;
-          }
-          updateTime.textContent = timeText;
-          li.appendChild(updateTime);
+          linkRow.appendChild(a);
 
           if (item.star && item.star > 0) {
             const stars = document.createElement("span");
             stars.className = "stars";
             stars.textContent = "⭐".repeat(item.star);
-            li.appendChild(stars);
+            linkRow.appendChild(stars);
           }
+
+          li.appendChild(linkRow);
+
+          // 更新时间和作者在下一行
+          const updateTime = document.createElement("div");
+          updateTime.className = "update-time";
+
+          const timeSpan = document.createElement("span");
+          timeSpan.textContent = `🕒 更新时间：${item.time || getCurrentFormattedTime()}`;
+          updateTime.appendChild(timeSpan);
+
+          if (item.author) {
+            const authorSpan = document.createElement("span");
+            authorSpan.textContent = `👤 作者：${item.author}`;
+            authorSpan.className = "author";
+            updateTime.appendChild(authorSpan);
+          }
+
+          li.appendChild(updateTime);
 
           ul.appendChild(li);
         });
