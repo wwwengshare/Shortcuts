@@ -178,6 +178,23 @@
 
     <h1 id="pageTitle">快捷指令合集</h1>
 
+    <div class="search-box" style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <select id="timeFilter" style="flex:1; padding: 8px; font-size: 1em; border-radius: 6px; border: 1px solid #ddd;">
+        <option value="">⏱ 默认时间</option>
+        <option value="asc">📈 时间升序</option>
+        <option value="desc">📉 时间降序</option>
+      </select>
+      <select id="starFilter" style="flex:1; padding: 8px; font-size: 1em; border-radius: 6px; border: 1px solid #ddd;">
+        <option value="">🌟 全部星级</option>
+        <option value="1">⭐ 1星及以上</option>
+        <option value="2">⭐⭐ 2星及以上</option>
+        <option value="3">⭐⭐⭐ 3星</option>
+      </select>
+      <select id="authorFilter" style="flex:1; padding: 8px; font-size: 1em; border-radius: 6px; border: 1px solid #ddd;">
+        <option value="">🎨 全部作者</option>
+      </select>
+    </div>
+
     <div class="search-box">
       <input type="text" id="searchInput" placeholder="🔍 搜索快捷指令关键词..." onkeyup="filterList()" />
       <button id="clearBtn" onclick="clearSearch()" aria-label="清空搜索">
@@ -188,26 +205,22 @@
       </button>
     </div>
 
-    <div class="search-box" style="display: flex; gap: 8px; flex-wrap: wrap;">
-      <select id="authorFilter" style="flex:1; padding: 8px; font-size: 1em; border-radius: 6px; border: 1px solid #ddd;">
-        <option value="">📇 全部作者</option>
-      </select>
-      <select id="starFilter" style="flex:1; padding: 8px; font-size: 1em; border-radius: 6px; border: 1px solid #ddd;">
-        <option value="">🌟 全部星级</option>
-        <option value="1">⭐ 1星及以上</option>
-        <option value="2">⭐⭐ 2星及以上</option>
-        <option value="3">⭐⭐⭐ 3星</option>
-      </select>
-      <select id="timeFilter" style="flex:1; padding: 8px; font-size: 1em; border-radius: 6px; border: 1px solid #ddd;">
-        <option value="">⏱ 默认时间</option>
-        <option value="asc">📈 时间升序</option>
-        <option value="desc">📉 时间降序</option>
-      </select>
-    </div>
-
     <ul id="shortcutList"></ul>
 
-    <div id="visitorCounter" style="position: fixed; bottom: 10px; left: 0; width: 100%; text-align: center; font-size: 0.9em; color: #999; background: transparent; padding: 6px 0; z-index: 999; opacity: 1; transition: opacity 0.5s;">
+    <div id="visitorCounter" style="
+      position: fixed;
+      bottom: 10px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9em;
+      color: #999;
+      background: transparent;
+      padding: 6px 0;
+      z-index: 999;
+      opacity: 1;
+      transition: opacity 0.5s;
+    ">
       🌐 网站总访问量：<span id="busuanzi_value_site_pv">加载中...</span>
     </div>
 
@@ -304,24 +317,28 @@
       }
 
       function filterList() {
-        const input = document.getElementById("searchInput").value.toLowerCase();
-        const author = document.getElementById("authorFilter").value;
-        const star = parseInt(document.getElementById("starFilter").value);
-        const timeOrder = document.getElementById("timeFilter").value;
+        const input = document.getElementById("searchInput");
+        const filter = input.value.toLowerCase();
 
-        let filtered = allShortcuts.filter(item => {
-          const matchTitle = item.title.toLowerCase().includes(input);
-          const matchAuthor = author ? item.author === author : true;
-          const matchStar = star ? (item.star || 0) >= star : true;
-          return matchTitle && matchAuthor && matchStar;
-        });
+        const authorValue = document.getElementById("authorFilter").value;
+        const starValue = document.getElementById("starFilter").value;
+        const timeValue = document.getElementById("timeFilter").value;
 
-        if (timeOrder) {
-          filtered.sort((a, b) => {
-            const t1 = new Date(a.time || "");
-            const t2 = new Date(b.time || "");
-            return timeOrder === "asc" ? t1 - t2 : t2 - t1;
-          });
+        let filtered = allShortcuts.filter(item =>
+          item.title.toLowerCase().includes(filter)
+        );
+
+        if (authorValue) {
+          filtered = filtered.filter(item => item.author === authorValue);
+        }
+        if (starValue) {
+          filtered = filtered.filter(item => item.star >= parseInt(starValue));
+        }
+
+        if (timeValue === "asc") {
+          filtered = filtered.sort((a, b) => (a.time || "").localeCompare(b.time || ""));
+        } else if (timeValue === "desc") {
+          filtered = filtered.sort((a, b) => (b.time || "").localeCompare(a.time || ""));
         }
 
         renderList(filtered);
@@ -336,11 +353,13 @@
           allShortcuts.forEach(item => {
             if (item.author) authorSet.add(item.author);
           });
-          const authorFilter = document.getElementById("authorFilter");
+
+          const authorSelect = document.getElementById("authorFilter");
           [...authorSet].sort().forEach(author => {
             const opt = document.createElement("option");
-            opt.value = opt.textContent = author;
-            authorFilter.appendChild(opt);
+            opt.value = author;
+            opt.textContent = author;
+            authorSelect.appendChild(opt);
           });
 
           renderList(allShortcuts);
@@ -359,29 +378,25 @@
 
       document.addEventListener("DOMContentLoaded", function () {
         loadShortcuts();
-        ["authorFilter", "starFilter", "timeFilter"].forEach(id => {
-          document.getElementById(id).addEventListener("change", filterList);
-        });
       });
 
-      const searchInput = document.getElementById("searchInput");
-      const clearBtn = document.getElementById("clearBtn");
-
-      searchInput.addEventListener("input", function () {
-        clearBtn.style.display = this.value.trim().length > 0 ? "block" : "none";
+      document.getElementById("searchInput").addEventListener("input", function () {
+        document.getElementById("clearBtn").style.display = this.value.trim().length > 0 ? "block" : "none";
       });
 
-      searchInput.addEventListener("focus", function () {
+      document.getElementById("searchInput").addEventListener("focus", function () {
         this.scrollIntoView({ behavior: "smooth", block: "center" });
         setTimeout(() => {
           window.scrollBy({ top: -20, behavior: "smooth" });
         }, 200);
       });
 
-      searchInput.addEventListener("keydown", function (e) {
-        if (e.key === "Enter") {
-          this.blur();
-        }
+      document.getElementById("searchInput").addEventListener("keydown", function (e) {
+        if (e.key === "Enter") this.blur();
+      });
+
+      ["authorFilter", "starFilter", "timeFilter"].forEach(id => {
+        document.getElementById(id).addEventListener("change", filterList);
       });
     </script>
 
