@@ -155,21 +155,6 @@
       float: right;
     }
 
-    .filter-row {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 24px;
-    }
-
-    .filter-row select {
-      flex: 1;
-      padding: 8px;
-      font-size: 1em;
-      border-radius: 6px;
-      border: 1px solid #ddd;
-      background-color: #fafafa;
-    }
-
     @media (max-width: 600px) {
       .container {
         padding: 24px;
@@ -193,20 +178,20 @@
 
     <h1 id="pageTitle">快捷指令合集</h1>
 
-    <div class="filter-row">
-      <select id="authorFilter">
-        <option value="">🎨 全部作者</option>
-      </select>
-      <select id="timeFilter">
+    <div class="search-box" style="display: flex; gap: 8px; flex-wrap: wrap;">
+      <select id="timeFilter" style="flex:1; padding: 8px; font-size: 1em; border-radius: 6px; border: 1px solid #ddd;">
         <option value="">⏱ 默认时间</option>
         <option value="asc">📈 时间升序</option>
         <option value="desc">📉 时间降序</option>
       </select>
-      <select id="starFilter">
+      <select id="starFilter" style="flex:1; padding: 8px; font-size: 1em; border-radius: 6px; border: 1px solid #ddd;">
         <option value="">🌟 全部星级</option>
         <option value="1">⭐ 1星及以上</option>
         <option value="2">⭐⭐ 2星及以上</option>
         <option value="3">⭐⭐⭐ 3星</option>
+      </select>
+      <select id="authorFilter" style="flex:1; padding: 8px; font-size: 1em; border-radius: 6px; border: 1px solid #ddd;">
+        <option value="">🎨 全部作者</option>
       </select>
     </div>
 
