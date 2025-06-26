@@ -219,7 +219,7 @@
           const li = document.createElement("li");
 
           const a = document.createElement("a");
-          a.href = `${item.title}.html`;
+          a.href = item.url || "#";
           a.textContent = `📎 ${item.title}`;
           li.appendChild(a);
 
@@ -255,11 +255,10 @@
             </div>
 
             <div style="height: 6px;"></div>
-
-
           `;
           ul.appendChild(note);
         }
+
         updateTitleCount(shortcuts.length);
       }
 
