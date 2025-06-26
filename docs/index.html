@@ -141,7 +141,7 @@
       color: #888;
       margin-top: 4px;
       position: relative;
-      padding-left: 1.9em; /* 留出 🕒 的宽度 */
+      padding-left: 1.9em;
     }
 
     .clock-icon {
@@ -232,12 +232,11 @@
         shortcuts.forEach(item => {
           const li = document.createElement("li");
 
-          // 链接和星星同行
           const linkRow = document.createElement("div");
           linkRow.className = "link-row";
 
           const emoji = document.createElement("span");
-          emoji.innerHTML = "📎&nbsp;"; // 保留空格
+          emoji.innerHTML = "📎&nbsp;";
           linkRow.appendChild(emoji);
 
           const titleWrapper = document.createElement("div");
@@ -290,7 +289,7 @@
               🏠 <a href="https://shortcuts.wwweng.eu.org/pages" style="color: #0070f3; text-decoration: none;"><strong>返回主页</strong></a>
             </div>
             <div style="margin-bottom: 8px;">
-              📢 <strong>提示：</strong><br><br>①该页面快捷指令将会自动更新为最新版使用前务必看清注释内容，若不明白可结合频道的视频一起看；<br><br>②⭐表示我的推荐等级(仅评自制版，其他作者的不做打分)，最多三颗星；<br><br>③名称后面标注(插件)的表示此快捷指令比较建议搭配 Opener Pro 或者 Click All In One 这两个快捷指令使用；<br><br>④如希望推荐你觉得好用的快捷指令可通过 Bot 私聊我。
+              📢 <strong>提示：</strong><br><br>①该页面快捷指令将会自动更新为最新版使用前务必看清注释内容，若不明白可结合频道的视频一起看；<br><br>②⭐表示我的推荐等级(仅评自制版，其他作者的不做打分)，最多三颗星；<br><br>③名称后面标注(插件)的表示此快捷指令比较建议搭配 Opener Pro 或者 Click All In One 这两个快捷指令使用；<br><br>④如希望推荐你觉得好用的快捷指令可通过 <a href="https://t.me/wwwengbot" target="_blank">Bot 私聊我</a>。
             </div>
             <div style="height: 6px;"></div>
           `;
