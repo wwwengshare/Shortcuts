@@ -230,7 +230,12 @@
 
           const a = document.createElement("a");
           a.href = `${item.name || item.title}.html`;
-          a.textContent = `📎 ${item.title}`;
+
+          const emoji = document.createElement("span");
+          emoji.textContent = "📎 ";
+          a.appendChild(emoji);
+          a.appendChild(document.createTextNode(item.title));
+
           linkRow.appendChild(a);
 
           if (item.star && item.star > 0) {
