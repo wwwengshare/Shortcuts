@@ -247,12 +247,12 @@
           updateTime.className = "update-time";
 
           const timeSpan = document.createElement("span");
-          timeSpan.textContent = `🕒 更新时间：${item.time || getCurrentFormattedTime()}`;
+          timeSpan.textContent = `🕒 Update：${item.time || getCurrentFormattedTime()}`;
           updateTime.appendChild(timeSpan);
 
           if (item.author) {
             const authorSpan = document.createElement("span");
-            authorSpan.textContent = `👤 作者：${item.author}`;
+            authorSpan.textContent = `By：${item.author}`;
             authorSpan.className = "author";
             updateTime.appendChild(authorSpan);
           }
